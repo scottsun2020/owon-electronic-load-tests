@@ -1,0 +1,11 @@
+comand to test single register read for ads7128
+
+https://www.ti.com/lit/ds/symlink/ads7128.pdf?ts=1757480501071#%5B%7B%22num%22%3A631%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22XYZ%22%7D%2C0%2C558.2%2C0%5D
+
+
+$ i2cset -f -y 1 0x13 0x10 0x00
+$ i2cget -f -y 1 0x13
+0x81
+$ i2cset -f -y 1 0x13 0x10 0x20
+$ i2cget -f -y 1 0x13
+0xf0
