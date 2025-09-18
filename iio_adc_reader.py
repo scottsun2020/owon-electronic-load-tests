@@ -1,31 +1,37 @@
 import os
 
-# Adjust to match your actual IIO device path
-IIO_DEVICE = "/sys/bus/iio/devices/iio:device0"
+IIO_PATH = "/sys/bus/iio/devices/iio:device0"
 
-def read_voltage(channel):
-    raw_path = f"{IIO_DEVICE}/in_voltage{channel}_raw"
-    scale_path = f"{IIO_DEVICE}/in_voltage{channel}_scale"
-
+def read_scale():
     try:
-        with open(raw_path, 'r') as f:
-            raw = int(f.read().strip())
+        with open(os.path.join(IIO_PATH, "in_voltage_scale"), 'r') as f:
+            return float(f.read().strip())
     except FileNotFoundError:
-        print(f"[ERROR] Channel {channel} raw file not found.")
+        print("Error: Global scale file not found.")
         return None
 
+def read_raw(channel):
     try:
-        with open(scale_path, 'r') as f:
-            scale = float(f.read().strip())
+        with open(os.path.join(IIO_PATH, f"in_voltage{channel}_raw"), 'r') as f:
+            return int(f.read().strip())
     except FileNotFoundError:
-        # If scale is not available, assume 1.0 (raw counts only)
-        scale = 1.0
+        return None
 
-    voltage = raw * scale
-    return voltage
+def main():
+    scale = read_scale()
+    if scale is None:
+        return
 
-# Example: Read channels 0 to 3
-for ch in range(4):
-    voltage = read_voltage(ch)
-    if voltage is not None:
-        print(f"Channel {ch}: {voltage:.3f} V")
+    print(f"Global Scale: {scale} mV/unit")
+
+    # Read up to 8 channels (ADS7128 supports 8 analog inputs)
+    for ch in range(8):
+        raw = read_raw(ch)
+        if raw is not None:
+            voltage = raw * scale / 1000  # Convert mV to V
+            print(f"Channel {ch}: Raw = {raw}, Voltage = {voltage:.3f} V")
+        else:
+            print(f"Channel {ch}: Not available")
+
+if __name__ == "__main__":
+    main()
