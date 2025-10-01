@@ -208,5 +208,22 @@ $ cat ads7138-overlay.dts
 dmesg | grep ads
 ```
 
+### Add 5v wire for New ADS7128
+
+### First, without changing the overlay,
+
+Add 5V to Raspberry Pi 5 Pin 2 (5V)
+![IMG_8277](https://github.com/user-attachments/assets/3c7a0b77-74df-4baa-ad93-bf9a9acfe978)
+
+The Reading needs to divide 3.3 v and then times 5v because the board is thinking the 3.3v is 5v
+
+Add 5V to Pin 17 (3.3v)
+![IMG_8299](https://github.com/user-attachments/assets/4e91f09b-339b-472a-85bd-5b7cfc257924)
+
+The Reading is correct.
+
+### Second, changing the overlay,
+
+
 
 
