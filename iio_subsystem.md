@@ -224,6 +224,85 @@ The Reading is correct.
 
 ### Second, changing the overlay,
 
+```
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "brcm,bcm2712";
+
+    fragment@0 {
+        target = <&i2c1>;
+        __overlay__ {
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            ads7128@10 {
+                compatible = "ti,ads7138";
+                reg = <0x10>;
+		status = "okay";	
+                // Reference to raspberry pi's 3.3v 
+                //avdd-supply = <&rp1_vdd_3v3>;
+		avdd-supply = <&ads7138_5v_reg>;
+
+            };
+        };
+    };
+fragment@1 {
+    target-path = "/";
+    __overlay__ {
+        ads7138_5v_reg: ads7138_5v_reg {
+            compatible = "regulator-fixed";
+            regulator-name = "ads7138-5v";
+            regulator-min-microvolt = <5000000>;
+            regulator-max-microvolt = <5000000>;
+            regulator-always-on;
+        };
+    };
+};
+
+	
+
+};
+```
+
+compile overlay file again into 7138ads.dtbo into boot/overlays 
+
+```
+sudo dtc -@ -I dts -O dtb -o ads7138.dtbo ads7138-overlay.dts
+
+```
+
+and add /boot/overlays
+
+### !!!I have to reboot and power off and reboot again to see the device tree recognize the ads7138
+
+error I got if not recognized
+
+```
+$ dmesg | grep ads
+[    2.989880] ti_ads7138: loading out-of-tree module taints kernel.
+[    3.383672] ads7138 1-0010: error -EREMOTEIO: Failed to initialize device
+[    3.383756] ads7138 1-0010: probe with driver ads7138 failed with error -121
+```
+
+hardward works well
+```
+dmesg | grep ads
+[    1.544480] ti_ads7138: loading out-of-tree module taints kernel.
+rivieh@raspberrypi:~ $ sudo i2cdetect -y 1
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+00:                         -- -- -- -- -- -- -- -- 
+10: UU -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+70: -- -- -- -- -- -- -- --                         
+```
+
+
 
 
 
