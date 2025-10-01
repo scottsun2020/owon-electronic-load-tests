@@ -201,3 +201,12 @@ $ cat ads7138-overlay.dts
 };
 ```
 
+
+### Check the error message from boot
+
+```
+dmesg | grep ads
+```
+
+
+
