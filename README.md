@@ -21,6 +21,13 @@ source pyvisa/bin/activate
 pip install pyvisa pyvisa-py
 ```
 
+One thing to pay attention if the identification number not shows up, you may have to check these two lines on your script:
+```
+inst = rm.open_resource("ASRL/dev/ttyUSB0::INSTR")
+
+inst.baud_rate = 115200
+```
+
 ## Example of SPM3051
 ![spm3051](https://github.com/user-attachments/assets/96c95b5f-2348-409c-a583-0a795f79de76)
 
