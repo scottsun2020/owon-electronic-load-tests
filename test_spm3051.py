@@ -18,8 +18,9 @@ print("IDN:", inst.query("*IDN?").strip())
 inst.timeout = 2000
 
 
-# Set multimeter function
-inst.write("FUNC VOLT:DC")
+# Set multimeter function (not measurement but just to select the mode)
+#inst.write("FUNC VOLT:DC")
+print("Reading the multimeter voltage values...")
 
 with open("spm3051_voltage_log.csv", "w", newline="") as f:
     writer = csv.writer(f)
