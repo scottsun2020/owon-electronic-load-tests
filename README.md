@@ -19,9 +19,9 @@ Install required packages in a virtual environment:
 python3 -m venv pyvisa
 source pyvisa/bin/activate
 pip install pyvisa pyvisa-py
-
+```
 ## Measurement from SPM3051
-pic
+
 <img width="765" height="398" alt="Screenshot from 2026-01-08 13-51-25" src="https://github.com/user-attachments/assets/c9394474-5b10-4277-9356-58ad83188563" />
 
 ## CSV file output for timestamp and voltage measurement from SPM3051
