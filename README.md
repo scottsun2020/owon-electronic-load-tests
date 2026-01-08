@@ -1,6 +1,6 @@
 # OWON Electronic Load Control Scripts
 
-This repository contains Python scripts to communicate with the **OWON OEL1515 DC Electronic Load** using the SCPI protocol via USB serial connection (PyVISA).  
+This repository contains Python scripts to communicate with the **OWON OEL1515 / SPS6051 / SPM3051** using the SCPI protocol via USB serial connection (PyVISA).  
 The scripts allow users to set operating modes (CR, CC, CV, CP), ramp resistance, and read measurements.
 
 ---
@@ -11,6 +11,8 @@ The scripts allow users to set operating modes (CR, CC, CV, CP), ramp resistance
 - [PyVISA](https://pyvisa.readthedocs.io/en/latest/)
 - [PyVISA-py](https://pyvisa-py.readthedocs.io/)
 - OWON OEL1515 DC Electronic Load
+- OWON SPM3051 Power Supply and Multimeter
+- OWON SPS6051 DC Power Supply
 - USB-to-Serial connection
 
 Install required packages in a virtual environment:
