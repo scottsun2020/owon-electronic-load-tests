@@ -20,6 +20,10 @@ python3 -m venv pyvisa
 source pyvisa/bin/activate
 pip install pyvisa pyvisa-py
 ```
+
+## Example of SPM3051
+![spm3051](https://github.com/user-attachments/assets/96c95b5f-2348-409c-a583-0a795f79de76)
+
 ## Measurement from SPM3051
 
 <img width="765" height="398" alt="Screenshot from 2026-01-08 13-51-25" src="https://github.com/user-attachments/assets/c9394474-5b10-4277-9356-58ad83188563" />
